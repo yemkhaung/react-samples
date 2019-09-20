@@ -13,10 +13,10 @@ class CollectionControls extends Component {
         const { collectionName } = this.props;
         let text;
 
-        if (numberOfTweetsInCollection === 1) {
-            text = `${numberOfTweetsInCollection} tweet in your`;
+        if (numberOfTweetsInCollection > 1) {
+            text = `${numberOfTweetsInCollection} tweet(s) in your`;
         } else {
-            text = `${numberOfTweetsInCollection} tweets in your`;
+            text = `${numberOfTweetsInCollection} tweet in your`;
         }
 
         return (
@@ -57,18 +57,18 @@ class CollectionControls extends Component {
             </div>
         );
     }
-
-    mapStateToProps = state => state.collection;
-
-    mapDispatchToProps = dispatch => ({
-        onRenameCollection: () => {
-            dispatch(toggleIsEditingName());
-        },
-        onEmptyCollection: () => {
-            dispatch(removeAllTweetsFromCollection());
-        }
-    });
 }
+
+const mapStateToProps = state => state.collection;
+
+const mapDispatchToProps = dispatch => ({
+    onRenameCollection: () => {
+        dispatch(toggleIsEditingName());
+    },
+    onEmptyCollection: () => {
+        dispatch(removeAllTweetsFromCollection());
+    }
+});
 
 export default connect(
     mapStateToProps,

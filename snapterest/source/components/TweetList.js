@@ -44,15 +44,15 @@ class TweetList extends Component {
 
         return <ul style={listStyle}>{tweetElements}</ul>;
     }
-
-    mapStateToProps = () => ({});
-
-    mapDispatchToProps = dispatch => ({
-        onRemoveTweetFromCollection: ({ id }) => {
-            dispatch(removeTweetFromCollection(id));
-        }
-    });
 }
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+    onRemoveTweetFromCollection: ({ id }) => {
+        dispatch(removeTweetFromCollection(id));
+    }
+});
 
 export default connect(
     mapStateToProps,

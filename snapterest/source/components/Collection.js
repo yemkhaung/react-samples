@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import ReactDOMServer from "react-dom/server";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 
 import CollectionControls from "./CollectionControls";
 import TweetList from "./TweetList";
 import Header from "./Header";
 import CollectionUtils from "../utils/CollectionUtils";
+import store from "../stores";
 
 class Collection extends Component {
     createHTMLMarkupStr = () => {
         const { collectionTweets } = this.props;
-        const htmlStr = ReactDOMServer.renderToStaticMarkup(
-            <TweetList tweets={collectionTweets} isExport={true} />
-        );
 
+        const htmlStr = ReactDOMServer.renderToStaticMarkup(
+            <Provider store={store}>
+                <TweetList tweets={collectionTweets} isExport={true} />
+            </Provider>
+        );
         const htmlMarkup = {
             html: htmlStr
         };
@@ -43,11 +46,11 @@ class Collection extends Component {
 
         return <Header text="Your collection is empty" />;
     }
-
-    mapStateToProps = state => state.collection;
-
-    mapDispatchToProps = dispatch => ({});
 }
+
+const mapStateToProps = state => state.collection;
+
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
     mapStateToProps,

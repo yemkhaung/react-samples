@@ -19,7 +19,7 @@ class CollectionRenameForm extends Component {
     }
 
     render() {
-        const { editingName, onNameChange, onSubmit, onCancel } = this.state;
+        const { editingName, onNameChange, onSubmit, onCancel } = this.props;
 
         return (
             <form className="form-inline" onSubmit={this.handleSubmit}>
@@ -40,23 +40,23 @@ class CollectionRenameForm extends Component {
             </form>
         );
     }
-
-    mapStateToProps = state => state.collection;
-
-    mapDispatchToProps = dispatch => ({
-        onNameChange: event => {
-            dispatch(setEditingName(event.target.value));
-        },
-        onSubmit: event => {
-            event.preventDefault();
-            dispatch(setCollectionName(event.target.value));
-        },
-        onCancel: () => {
-            event.preventDefault();
-            dispatch(toggleIsEditingName());
-        }
-    });
 }
+
+const mapStateToProps = state => state.collection;
+
+const mapDispatchToProps = dispatch => ({
+    onNameChange: event => {
+        dispatch(setEditingName(event.target.value));
+    },
+    onSubmit: event => {
+        event.preventDefault();
+        dispatch(setCollectionName(event.target.value));
+    },
+    onCancel: () => {
+        event.preventDefault();
+        dispatch(toggleIsEditingName());
+    }
+});
 
 export default connect(
     mapStateToProps,
