@@ -1,32 +1,15 @@
 import React, { Component } from "react";
 import ReactDOMServer from "react-dom/server";
+import { connect } from "react-redux";
+
 import CollectionControls from "./CollectionControls";
 import TweetList from "./TweetList";
 import Header from "./Header";
 import CollectionUtils from "../utils/CollectionUtils";
-import CollectionStore from "../stores/CollectionStore";
 
 class Collection extends Component {
-    state = {
-        collectionTweets: CollectionStore.getCollectionTweets()
-    };
-
-    componentDidMount() {
-        CollectionStore.addChangeListener(this.onCollectionChange);
-    }
-
-    componentWillUnmount() {
-        CollectionStore.removeChangeListener(this.onCollectionChange);
-    }
-
-    onCollectionChange = () => {
-        this.setState({
-            collectionTweets: CollectionStore.getCollectionTweets()
-        });
-    };
-
     createHTMLMarkupStr = () => {
-        const { collectionTweets } = this.state;
+        const { collectionTweets } = this.props;
         const htmlStr = ReactDOMServer.renderToStaticMarkup(
             <TweetList tweets={collectionTweets} isExport={true} />
         );
@@ -39,7 +22,7 @@ class Collection extends Component {
     };
 
     render() {
-        const { collectionTweets } = this.state;
+        const { collectionTweets } = this.props;
         const numTweetInCollection = CollectionUtils.getNumberOfTweetsInCollection(
             collectionTweets
         );
@@ -60,6 +43,13 @@ class Collection extends Component {
 
         return <Header text="Your collection is empty" />;
     }
+
+    mapStateToProps = state => state.collection;
+
+    mapDispatchToProps = dispatch => ({});
 }
 
-export default Collection;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Collection);
