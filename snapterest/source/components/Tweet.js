@@ -48,7 +48,7 @@ class Tweet extends Component {
 }
 
 // validate properties
-Tweet.PropTypes = {
+Tweet.propTypes = {
   tweet: (properties, propertyName, componentName) => {
     const tweet = properties[propertyName];
 

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Tweet from "./Tweet";
-import CollectionActionCreators from "../actions/CollectionActionCreators";
+import { removeTweetFromCollection } from "../actions";
 
 const listStyle = {
     padding: 0
@@ -11,12 +13,8 @@ const listItemStyle = {
 };
 
 class TweetList extends Component {
-    removeTweetFromCollection = tweet => {
-        CollectionActionCreators.removeTweetFromCollection(tweet.id);
-    };
-
     getTweetElement = tweetId => {
-        const { tweets, isExport } = this.props;
+        const { tweets, isExport, onRemoveTweetFromCollection } = this.props;
         const tweet = tweets[tweetId];
 
         let tweetElement;
@@ -27,7 +25,7 @@ class TweetList extends Component {
             tweetElement = (
                 <Tweet
                     tweet={tweet}
-                    onImageClick={this.removeTweetFromCollection}
+                    onImageClick={onRemoveTweetFromCollection}
                 />
             );
         }
@@ -48,4 +46,15 @@ class TweetList extends Component {
     }
 }
 
-export default TweetList;
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+    onRemoveTweetFromCollection: ({ id }) => {
+        dispatch(removeTweetFromCollection(id));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TweetList);

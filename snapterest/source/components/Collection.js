@@ -1,36 +1,22 @@
 import React, { Component } from "react";
 import ReactDOMServer from "react-dom/server";
+import { connect, Provider } from "react-redux";
+
 import CollectionControls from "./CollectionControls";
 import TweetList from "./TweetList";
 import Header from "./Header";
 import CollectionUtils from "../utils/CollectionUtils";
-import CollectionStore from "../stores/CollectionStore";
+import store from "../stores";
 
 class Collection extends Component {
-    state = {
-        collectionTweets: CollectionStore.getCollectionTweets()
-    };
-
-    componentDidMount() {
-        CollectionStore.addChangeListener(this.onCollectionChange);
-    }
-
-    componentWillUnmount() {
-        CollectionStore.removeChangeListener(this.onCollectionChange);
-    }
-
-    onCollectionChange = () => {
-        this.setState({
-            collectionTweets: CollectionStore.getCollectionTweets()
-        });
-    };
-
     createHTMLMarkupStr = () => {
-        const { collectionTweets } = this.state;
-        const htmlStr = ReactDOMServer.renderToStaticMarkup(
-            <TweetList tweets={collectionTweets} isExport={true} />
-        );
+        const { collectionTweets } = this.props;
 
+        const htmlStr = ReactDOMServer.renderToStaticMarkup(
+            <Provider store={store}>
+                <TweetList tweets={collectionTweets} isExport={true} />
+            </Provider>
+        );
         const htmlMarkup = {
             html: htmlStr
         };
@@ -39,7 +25,7 @@ class Collection extends Component {
     };
 
     render() {
-        const { collectionTweets } = this.state;
+        const { collectionTweets } = this.props;
         const numTweetInCollection = CollectionUtils.getNumberOfTweetsInCollection(
             collectionTweets
         );
@@ -62,4 +48,11 @@ class Collection extends Component {
     }
 }
 
-export default Collection;
+const mapStateToProps = state => state.collection;
+
+const mapDispatchToProps = dispatch => ({});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Collection);

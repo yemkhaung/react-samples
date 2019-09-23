@@ -1,19 +1,32 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import Header from "./Header";
 import Tweet from "./Tweet";
-import CollectionActionCreators from "../actions/CollectionActionCreators";
+import { addTweetToCollection } from "../actions";
 
 class StreamTweet extends Component {
     render() {
-        const { tweet,  } = this.props;
+        const { tweet, onImageClick } = this.props;
 
         return (
             <section>
-                <Header text="Latest photo from Twitter" />
-                <Tweet tweet={tweet} onImageClick={this.addTweetToCollection} />
+                <Header text="Latest public photo from Twitter" />
+                <Tweet tweet={tweet} onImageClick={onImageClick} />
             </section>
         );
     }
 }
 
-export default StreamTweet;
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    onImageClick: () => {
+        dispatch(addTweetToCollection(ownProps.tweet));
+    }
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(StreamTweet);
