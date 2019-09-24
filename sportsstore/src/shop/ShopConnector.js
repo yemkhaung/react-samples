@@ -5,6 +5,7 @@ import { addToCart, updateCartQuantity, removeFromCart, clearCart } from "../dat
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Shop } from "./Shop";
 import { DataTypes } from "../data/Types";
+import { CartDetails } from "./CartDetails";
 
 const mapStateToProps = datastore => ({
     ...datastore
@@ -40,6 +41,13 @@ export const ShopConnector = connect(
                                 products={filterProducts(this.props.products, routeProps.match.params.category)}
                             />
                         )}
+                    />
+                    <Route
+                        path="/shop/cart"
+                        render={(routeProps) => <CartDetails
+                            {...this.props}
+                            {...routeProps}
+                        />}
                     />
                     <Redirect to="/shop/products" />
                 </Switch>
