@@ -4,7 +4,7 @@ import ToggleLink from "../ToggleLink";
 export class CategoryNavigation extends Component {
     render = () => (
         <React.Fragment>
-            <ToggleLink to={this.props.baseUrl} exact={true}>
+            <ToggleLink to={`${this.props.baseUrl}/all`} exact={false}>
                 All
             </ToggleLink>
             {this.props.categories &&
