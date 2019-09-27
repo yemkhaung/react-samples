@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import uuid from "uuid/v4";
 import { ValidatedForm } from "../forms/ValidatedForm";
 
 export class Checkout extends Component {
@@ -16,7 +15,6 @@ export class Checkout extends Component {
     handleSubmit = formData => {
         const order = {
             ...formData,
-            id: uuid(),
             products: this.props.cart.map(item => ({
                 quantity: item.quantity,
                 product_id: item.product_id

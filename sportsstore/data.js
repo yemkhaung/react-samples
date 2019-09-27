@@ -21,6 +21,6 @@ module.exports = function() {
     return {
         categories: categories,
         products: data,
-        order: []
+        orders: []
     };
 };
