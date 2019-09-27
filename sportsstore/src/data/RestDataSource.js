@@ -4,5 +4,7 @@ import { RestUrls } from "./Urls";
 export class RestDataSource {
     GetData = async (dataType, params) => this.sendRequest("get", RestUrls[dataType], params);
 
-    sendRequest = (method, url, params) => Axios.request({ method, url, params });
+    StoreData = async (dataType, data) => this.sendRequest("post", RestUrls[dataType], {}, data);
+
+    sendRequest = (method, url, params, data) => Axios.request({ method, url, params, data });
 }
