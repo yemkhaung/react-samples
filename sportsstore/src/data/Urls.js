@@ -9,3 +9,5 @@ export const RestUrls = {
     [DataTypes.CATEGORIES]: `${protocol}://${host}:${port}/api/categories`,
     [DataTypes.ORDERS]: `${protocol}://${host}:${port}/api/orders`
 }
+
+export const GraphQlUrl = `${protocol}://${host}:${port}/graphql`;
