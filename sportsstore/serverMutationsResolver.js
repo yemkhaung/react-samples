@@ -22,4 +22,9 @@ const shipOrder = ({ id, shipped }, { db }) =>
         .updateById(id, { shipped: shipped })
         .value();
 
-module.exports = { storeProduct, updateProduct, deleteProduct, shipOrder };
+module.exports = {
+    storeProduct,
+    updateProduct,
+    deleteProduct,
+    shipOrder
+};

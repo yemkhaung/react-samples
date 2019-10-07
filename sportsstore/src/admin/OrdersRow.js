@@ -23,7 +23,7 @@ export class OrdersRow extends Component {
                     onClick={this.props.toggleShipped}
                 >
                     {this.getShipping(this.props.order)}
-                    <span>{this.props.order.shipped ? "Shipped" : "Pending"}</span>
+                    <span>{this.props.order.shipped ? " Shipped" : " Pending"}</span>
                 </button>
             </td>
         </tr>

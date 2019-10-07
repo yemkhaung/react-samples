@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 
-class ToggleLink extends Component {
+export class ToggleLink extends Component {
     render() {
         return (
             <Route
@@ -22,6 +22,4 @@ class ToggleLink extends Component {
             />
         );
     }
-}
-
-export default ToggleLink;
+};
